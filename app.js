@@ -76,6 +76,14 @@ class App {
       await this.loadPage('ia');
     });
 
+    router.register('store', async () => {
+      await this.loadPage('store');
+    });
+
+    router.register('siphon', async () => {
+      await this.loadPage('siphon');
+    });
+
     router.register('recherche-emploi', async () => {
       await this.loadPage('recherche-emploi');
     });
