@@ -1,26 +1,80 @@
+<style>
+  .mail-account-card { padding: 18px; border: 1px solid var(--border-color); border-radius: 12px; background-color: var(--card-bg); margin-bottom: 20px; }
+  .mail-account-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+</style>
+
 <div class="module-header">
   <button class="openbtn" onclick="router.navigate('communication')">&larr;</button>
   <h2>✉️ Mail</h2>
 </div>
 
-<div class="dashboard-grid">
-  <div class="card">
-    <h3>Gmail</h3>
-    <p>Service de messagerie Google</p>
-    <div class="card-actions">
-      <button class="btn-oval" style="background-color: white; color: #3c4043; border: 1px solid #dadce0;" onclick="window.open('https://mail.google.com', '_blank')">Ouvrir Gmail</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>Outlook</h3>
-    <p>Service de messagerie Microsoft</p>
-    <div class="card-actions">
-      <button class="btn-oval" style="background-color: #0078d4; color: white; border: none;" onclick="window.open('https://outlook.live.com', '_blank')">Ouvrir Outlook</button>
-    </div>
-  </div>
+<div id="mail-accounts-list" style="margin-top: 25px;">
+  <p style="color: var(--text-sub); text-align: center;">Chargement des comptes...</p>
 </div>
 
-<p style="text-align: center; margin-top: 20px; color: var(--text-sub);">
-  Pour l'intégration complète avec OAuth, configurez les identifiants Google dans config.js
-</p>
+<div style="margin-top: 10px; text-align: center;">
+  <button class="btn-oval" onclick="router.navigate('parametres')">⚙️ Gérer les comptes</button>
+</div>
+
+<script>
+  (function() {
+    function escapeHtml_(str) {
+      const div = document.createElement('div');
+      div.textContent = str || '';
+      return div.innerHTML;
+    }
+
+    function render(accounts) {
+      const container = document.getElementById('mail-accounts-list');
+      if (!container) return;
+
+      if (!accounts || accounts.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-sub); text-align: center;">Aucun compte enregistré. Ajoutez-en un depuis ⚙️ Paramètres.</p>';
+        return;
+      }
+
+      container.innerHTML = '';
+      accounts.forEach(acc => {
+        container.appendChild(acc.type === 'gmail' ? buildGmailCard_(acc) : buildOutlookCard_(acc));
+      });
+    }
+
+    function buildGmailCard_(acc) {
+      const card = document.createElement('div');
+      card.className = 'mail-account-card';
+
+      const title = acc.label || 'Gmail';
+      card.innerHTML =
+        '<div class="mail-account-header">' +
+          '<div style="display:flex; align-items:center; gap:10px;">' +
+            '<img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail" style="width:22px; height:auto;">' +
+            '<div><strong>' + escapeHtml_(title) + '</strong><br><span style="font-size:13px; color:var(--text-sub);">' + escapeHtml_(acc.email) + '</span></div>' +
+          '</div>' +
+          '<div style="display:flex; gap:8px;">' +
+            '<button class="btn-oval" style="padding:8px 18px; font-size:13px;" onclick="window.open(\'https://mail.google.com\', \'_blank\')">📧 Ouvrir Gmail ↗</button>' +
+          '</div>' +
+        '</div>';
+
+      return card;
+    }
+
+    function buildOutlookCard_(acc) {
+      const card = document.createElement('div');
+      card.className = 'mail-account-card';
+      const title = acc.label || 'Outlook';
+      const url = 'https://outlook.live.com/mail/0/?login_hint=' + encodeURIComponent(acc.email);
+
+      card.innerHTML =
+        '<div class="mail-account-header">' +
+          '<div><strong>' + escapeHtml_(title) + '</strong><br><span style="font-size:13px; color:var(--text-sub);">' + escapeHtml_(acc.email) + '</span></div>' +
+          '<button class="btn-oval" style="background-color:#0078d4; color:white; border:none; padding:8px 20px; font-size:13px;" onclick="window.open(\'' + url + '\', \'_blank\')">Ouvrir ↗</button>' +
+        '</div>';
+
+      return card;
+    }
+
+    // Charger depuis localStorage (version simplifiée)
+    const accounts = JSON.parse(localStorage.getItem('mail_accounts') || '[]');
+    render(accounts);
+  })();
+</script>
