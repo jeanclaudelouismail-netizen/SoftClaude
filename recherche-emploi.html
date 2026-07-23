@@ -1,30 +1,31 @@
-<div class="module-header">
-  <button class="openbtn" onclick="showHome()">&larr;</button>
-  <h2>💼 Recherche d'emploi</h2>
+<style>
+  .emploi-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+  .emploi-header-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .emploi-header-right { display: flex; gap: 10px; flex-wrap: wrap; }
+  @media (max-width: 700px) {
+    .emploi-header-right { width: 100%; justify-content: center; }
+  }
+</style>
+
+<div class="module-header emploi-header">
+  <div class="emploi-header-left">
+    <button class="openbtn" onclick="showHome()">&larr;</button>
+    <button class="btn-oval" onclick="toggleFullScreen('recherche-emploi-module')" style="margin: 0; padding: 8px 20px; font-size: 14px;">Plein écran ⛶</button>
+    <h2 style="margin: 0;">🔍 Recherche d'emploi</h2>
+  </div>
+  <div class="emploi-header-right hide-on-fullscreen">
+    <button class="btn-oval" style="margin: 0; padding: 8px 20px; font-size: 14px;" onclick="window.open('https://drive.google.com/drive/folders/1T3gSELxtN_dnbbsyAXjtqhQpPSn3RDTm?usp=drive_link', '_blank')">Data 📂</button>
+    <button class="btn-oval" style="margin: 0; padding: 8px 20px; font-size: 14px;" onclick="window.open('https://gemini.google.com/gem/1nz9R-lizECzoAREVZPoZke1baF6_zhwb?usp=sharing', '_blank')">Pilote Emploi 🤖</button>
+  </div>
 </div>
 
-<div class="dashboard-grid">
-  <div class="card">
-    <h3>LinkedIn</h3>
-    <p>Réseau professionnel</p>
-    <div class="card-actions">
-      <button class="btn-oval" style="background-color: #0077b5; color: white; border: none;" onclick="window.open('https://www.linkedin.com/jobs', '_blank')">Voir les offres</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>Pôle Emploi</h3>
-    <p>Service public de l'emploi</p>
-    <div class="card-actions">
-      <button class="btn-oval" style="background-color: #1e3b8a; color: white; border: none;" onclick="window.open('https://www.pole-emploi.fr', '_blank')">Voir les offres</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>APEC</h3>
-    <p>Association pour l'emploi des cadres</p>
-    <div class="card-actions">
-      <button class="btn-oval" style="background-color: #0055a4; color: white; border: none;" onclick="window.open('https://www.apec.fr', '_blank')">Voir les offres</button>
-    </div>
+<div id="recherche-emploi-module" class="module-container">
+  <div class="iframe-container">
+    <iframe 
+      src="https://script.google.com/macros/s/AKfycbxXFmncga5ZYODDjVcHy9MpGOIK5g4QkgqdiXiqRqB6ovvDHC4H5vvUR1nH17y3K0fe/exec" 
+      style="width: 100%; height: 100%; border: none;"
+      allow="geolocation; microphone; camera; autoplay"
+      allowfullscreen>
+    </iframe>
   </div>
 </div>
