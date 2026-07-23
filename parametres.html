@@ -1,0 +1,55 @@
+<div class="module-header">
+  <button class="openbtn" onclick="showHome()">&larr;</button>
+  <h2>⚙️ Paramètres</h2>
+</div>
+
+<div style="max-width: 600px; margin: 0 auto;">
+  <div class="card">
+    <h3>Thème</h3>
+    <p>Choisissez votre préférence d'affichage</p>
+    <div class="card-actions">
+      <button class="btn-oval" onclick="setTheme('light')">☀️ Clair</button>
+      <button class="btn-oval" onclick="setTheme('dark')">🌙 Sombre</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <h3>Compte</h3>
+    <p>Gestion de votre compte utilisateur</p>
+    <div class="card-actions">
+      <button class="btn-oval" id="auth-btn">Connexion</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 20px;">
+    <h3>À propos</h3>
+    <p>SoftClaude v2.0.0</p>
+    <p style="font-size: 13px; color: var(--text-sub);">Architecture GitHub Pages + Supabase</p>
+  </div>
+</div>
+
+<script>
+  function setTheme(theme) {
+    if (theme === 'dark') {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+    localStorage.setItem('theme', theme);
+  }
+
+  // Mettre à jour le bouton d'auth selon l'état
+  function updateAuthButton() {
+    const btn = document.getElementById('auth-btn');
+    if (authManager.isAuthenticated()) {
+      btn.textContent = 'Déconnexion';
+      btn.onclick = () => authManager.signOut();
+    } else {
+      btn.textContent = 'Connexion';
+      btn.onclick = () => router.navigate('login');
+    }
+  }
+
+  // Initialiser
+  updateAuthButton();
+</script>
