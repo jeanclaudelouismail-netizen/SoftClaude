@@ -1,0 +1,68 @@
+<h2 style="text-align: center;">🏠 Accueil</h2>
+
+<div class="dashboard-grid">
+  
+  <!-- Catégorie Explorer -->
+  <div class="card">
+    <h3>🔍 Explorer</h3>
+    <p>Accès rapide aux services externes.</p>
+    <div class="card-actions">
+      <button class="btn-oval" style="background-color: white; color: #757575; border: 1px solid #dadce0; display: flex; align-items: center; gap: 10px; padding: 10px 20px; font-weight: 500;" onclick="window.open('https://www.google.fr', '_blank')">
+        <svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.63-.06-1.25-.16-1.84H9v3.49h4.84a4.14 4.14 0 0 1-1.8 2.71v2.26h2.91a8.78 8.78 0 0 0 2.69-6.62z" fill="#4285F4"/><path d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.91-2.26c-.8.54-1.83.86-3.05.86-2.34 0-4.33-1.58-5.03-3.7H.95v2.3A8.99 8.99 0 0 0 9 18z" fill="#34A853"/><path d="M3.97 10.71c-.18-.54-.28-1.12-.28-1.71s.1-1.17.28-1.71V4.99H.95A8.99 8.99 0 0 0 0 9c0 1.45.35 2.82.95 4.01l3.02-2.3z" fill="#FBBC05"/><path d="M9 3.58c1.32 0 2.5.45 3.44 1.35L15 2.35A8.96 8.96 0 0 0 9 0C5.48 0 2.44 2.02.95 4.99l3.02 2.3c.7-2.12 2.69-3.71 5.03-3.71z" fill="#EA4335"/></svg>
+        Google
+      </button>
+      <button class="btn-oval" onclick="window.open('https://drive.google.com/drive/u/0/my-drive', '_blank')">📂 ​Data Base</button>
+    </div>
+  </div>
+
+  <!-- Catégorie Média -->
+  <div class="card">
+    <h3>▶️ Média</h3>
+    <p>Gérez vos contenus multimédias.</p>
+    <div class="card-actions">
+      <button class="btn-oval" onclick="router.navigate('video')">🎬 Vidéo</button>
+      <button class="btn-oval" onclick="router.navigate('musique')">🎶 ​Musique</button>
+    </div>
+  </div>
+
+  <!-- Catégorie Communication -->
+  <div class="card">
+    <h3>💬 Communication</h3>
+    <p>Espace d'échanges et réseaux sociaux.</p>
+    <div class="card-actions">
+      <button class="btn-oval" onclick="router.navigate('communication')">🗨️​ Accéder</button>
+    </div>
+  </div>
+
+  <!-- Catégorie IA -->
+  <div class="card">
+    <h3>🤖 IA</h3>
+    <p>Vos assistants d'intelligence artificielle.</p>
+    <div class="card-actions">
+      <button class="btn-oval" onclick="router.navigate('ia')">Accéder</button>
+    </div>
+  </div>
+
+  <!-- Catégorie Productivité -->
+  <div class="card">
+    <h3>📈 Productivité</h3>
+    <p>Outils d'efficacité et carrière.</p>
+    <div class="card-actions">
+      <button class="btn-oval" onclick="router.navigate('recherche-emploi')">💼 ​Emploi</button>
+    </div>
+  </div>
+
+  <!-- Catégorie Gestion -->
+  <div class="card">
+    <h3>📊 Gestion</h3>
+    <p>Suivi financier et administratif.</p>
+    <div class="card-actions">
+      <button class="btn-oval" onclick="router.navigate('finance')">💰 Finance</button>
+      <button class="btn-oval" onclick="router.navigate('agenda')">📅 Agenda</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  logDebug("Page d'accueil chargée");
+</script>
