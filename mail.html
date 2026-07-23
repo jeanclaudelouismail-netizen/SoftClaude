@@ -1,0 +1,26 @@
+<div class="module-header">
+  <button class="openbtn" onclick="router.navigate('communication')">&larr;</button>
+  <h2>✉️ Mail</h2>
+</div>
+
+<div class="dashboard-grid">
+  <div class="card">
+    <h3>Gmail</h3>
+    <p>Service de messagerie Google</p>
+    <div class="card-actions">
+      <button class="btn-oval" style="background-color: white; color: #3c4043; border: 1px solid #dadce0;" onclick="window.open('https://mail.google.com', '_blank')">Ouvrir Gmail</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Outlook</h3>
+    <p>Service de messagerie Microsoft</p>
+    <div class="card-actions">
+      <button class="btn-oval" style="background-color: #0078d4; color: white; border: none;" onclick="window.open('https://outlook.live.com', '_blank')">Ouvrir Outlook</button>
+    </div>
+  </div>
+</div>
+
+<p style="text-align: center; margin-top: 20px; color: var(--text-sub);">
+  Pour l'intégration complète avec OAuth, configurez les identifiants Google dans config.js
+</p>
