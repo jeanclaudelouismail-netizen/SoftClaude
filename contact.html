@@ -1,0 +1,206 @@
+<div class="module-header" style="position: relative; display: flex; align-items: center; flex-wrap: wrap; gap: 10px; min-height: 44px;">
+  <button class="openbtn" onclick="router.navigate('communication')">&larr;</button>
+  <button type="button" id="add-contact-btn" class="btn-oval" style="padding: 8px 20px; font-size: 14px;">➕ Nouveau contact</button>
+  <h2>👤 Contacts</h2>
+  <div id="group-dropdown-wrap" class="group-dropdown-wrap"></div>
+</div>
+
+<style>
+  @media (min-width: 481px) {
+    .module-header .group-dropdown-wrap {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  @media (max-width: 480px) {
+    .module-header .group-dropdown-wrap { width: 100%; }
+    .module-header .group-dropdown-btn { width: 100%; justify-content: center; }
+  }
+
+  .contact-search-bar {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2001;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    width: min(420px, 60vw);
+    transition: opacity 0.2s, margin-left var(--transition-speed), top var(--transition-speed);
+  }
+  .contact-search-bar input {
+    width: 100%;
+    padding: 9px 16px;
+    border-radius: 50px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  @media (min-width: 769px) {
+    body.sidebar-open .contact-search-bar { margin-left: var(--sidebar-width); }
+  }
+  body.sidebar-open .contact-search-bar {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  @media (max-width: 600px) {
+    .contact-search-bar { width: min(240px, 55vw); }
+  }
+
+  .contact-menu-wrap { position: relative; flex-shrink: 0; }
+  .contact-menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    color: var(--text-sub);
+    line-height: 1;
+  }
+  .contact-menu-btn:hover { background: var(--border-color); }
+  .contact-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    min-width: 150px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    z-index: 10;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .contact-menu button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 14px;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 14px;
+    color: var(--text-color);
+    cursor: pointer;
+  }
+  .contact-menu button:hover { background: var(--border-color); }
+  .contact-menu button.danger { color: #e74c3c; }
+
+  .group-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 50px;
+    background: var(--border-color);
+    color: var(--text-sub);
+    font-size: 11px;
+    margin: 4px 4px 0 0;
+  }
+
+  .group-dropdown-wrap {
+    position: relative;
+    display: inline-block;
+  }
+  .group-dropdown-btn {
+    padding: 8px 18px;
+    border-radius: 50px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .group-dropdown-panel {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    min-width: 230px;
+    max-height: 320px;
+    overflow-y: auto;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+    z-index: 100;
+    padding: 6px;
+    box-sizing: border-box;
+  }
+  .group-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .group-dropdown-item:hover { background: var(--border-color); }
+  .group-dropdown-item.active { background: var(--accent-color); color: var(--bg-color); }
+  .group-dropdown-item .gd-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .group-dropdown-item .gd-count { font-size: 11px; opacity: 0.6; flex-shrink: 0; }
+  .group-dropdown-item .gd-check { width: 16px; flex-shrink: 0; }
+  .group-dropdown-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.5;
+    font-size: 13px;
+    padding: 2px 4px;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .group-dropdown-delete:hover { opacity: 1; color: #e74c3c; }
+  .group-dropdown-divider { height: 1px; background: var(--border-color); margin: 6px 2px; }
+  .group-dropdown-new {
+    display: flex;
+    gap: 6px;
+    padding: 6px 4px 2px 4px;
+  }
+  .group-dropdown-new input {
+    flex: 1;
+    min-width: 0;
+    padding: 7px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 13px;
+    box-sizing: border-box;
+  }
+  .group-dropdown-new button {
+    padding: 7px 12px;
+    border-radius: 8px;
+    border: none;
+    background: var(--accent-color);
+    color: var(--bg-color);
+    font-size: 13px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .group-dropdown-empty { padding: 10px; text-align: center; font-size: 13px; color: var(--text-sub); }
+</style>
+
+<div class="contact-search-bar hide-on-fullscreen">
+  <input type="text" id="contact-search" placeholder="Rechercher un contact...">
+</div>
+
+<div style="margin-top: 20px; max-width: 700px; margin-left: auto; margin-right: auto; padding: 0 15px; box-sizing: border-box;">
+  <div id="new-contact-form-wrap"></div>
+</div>
+
+<div id="contacts-list" style="margin-top: 10px; max-width: 700px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; gap: 10px; padding: 0 15px 40px 15px; box-sizing: border-box;">
+  <p style="text-align: center; color: var(--text-sub);">Chargement des contacts...</p>
+</div>
