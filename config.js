@@ -3,7 +3,7 @@ const CONFIG = {
   // Supabase Configuration (à remplir avec vos clés)
   supabase: {
     url: 'YOUR_SUPABASE_URL',
-    anonKey: 'YOUR_SUPABASE_ANON_KEY'
+    anonKey: 'sb_publishable_q0Z_7FG0zEVsyNdt3xwuIw__hrLxdHC'
   },
 
   // Google OAuth Configuration
