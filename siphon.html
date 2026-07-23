@@ -1,0 +1,17 @@
+<div class="module-header" style="display: flex; align-items: center; gap: 12px;">
+  <button class="openbtn" onclick="router.navigate('communication')">&larr;</button>
+  <button class="btn-oval" onclick="toggleFullScreen('siphon-module')" style="margin: 0; padding: 8px 20px; font-size: 14px;">Plein écran ⛶</button>
+  <h2 style="margin: 0;">🚰 Siphon</h2>
+</div>
+
+<div id="siphon-module" class="module-container" style="margin-top: 20px;">
+  
+  <div class="iframe-container">
+    <iframe 
+      src="https://script.google.com/macros/s/AKfycbxf8P-whRynMZ1VwXOQ8m4KcY48XGjoaVkD6Zev7LZeaUW1niUmwnePezl0O5POD5VQ/exec" 
+      style="width: 100%; height: 100%; border: none;"
+      allow="geolocation; microphone; camera; autoplay"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
