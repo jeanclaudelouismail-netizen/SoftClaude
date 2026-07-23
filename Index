@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://drive.google.com/thumbnail?sz=w300&id=1ZXllEoq0UxcYzDkAlP6DTe6_pvxG3Ft4">
+    <!-- C'est ici que le style global est injecté pour Video.html et les autres -->
+    <?!= inclusionDynamique('Styles'); ?>
+  </head>
+  <body>
+
+    <!-- Barre de navigation persistante -->
+    <div class="top-bar">
+      <button id="menu-toggle" class="openbtn">☰</button>
+      <img id="top-bar-logo" src="https://drive.google.com/thumbnail?sz=w300&id=1PwzzDJu1FnMuykyxgeEvupoQo1BLAX_5" alt="Logo" class="top-bar-logo" referrerpolicy="no-referrer">
+      <span id="brand-name" style="color: white; margin-left: 15px; font-size: 18px; font-weight: 500; cursor: pointer; user-select: none;">SoftClaude</span>
+    </div>
+
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+    <?!= inclusionDynamique('Sidebar'); ?>
+    
+    <!-- Console de débogage et Scripts globaux (placés avant le contenu pour définir logDebug) -->
+    <div id="debug-console">
+      <div id="debug-close" onclick="setDebugMode(false)">×</div>
+      <div id="debug-logs"></div>
+    </div>
+    <?!= inclusionDynamique('Scripts'); ?>
+
+    <div id="main">
+      <div id="page-content">
+        <?!= inclusionDynamique('Home'); ?>
+      </div>
+    </div>
+  </body>
+</html>
