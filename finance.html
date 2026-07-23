@@ -1,0 +1,130 @@
+<style>
+  .finance-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+  .finance-header-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .finance-header-right { display: flex; gap: 10px; flex-wrap: wrap; }
+  @media (max-width: 700px) {
+    .finance-header-right { width: 100%; justify-content: center; }
+  }
+  
+  .indicator-card {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--card-bg);
+    margin-top: 15px;
+  }
+  
+  .indicator-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-sub);
+    margin-bottom: 10px;
+  }
+  
+  .indicator-chart {
+    height: 150px;
+    position: relative;
+    width: 100%;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+    font-size: 13px;
+    color: var(--text-sub);
+  }
+  
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .stat-label {
+    font-size: 11px;
+    opacity: 0.7;
+  }
+  
+  .stat-value {
+    font-weight: 600;
+    font-size: 14px;
+  }
+  
+  .stat-value.positive { color: #188038; }
+  .stat-value.negative { color: #d93025; }
+</style>
+
+<div class="module-header finance-header">
+  <div class="finance-header-left">
+    <button class="openbtn" onclick="showHome()">&larr;</button>
+    <button class="btn-oval" onclick="toggleFullScreen('finance-module')" style="margin: 0; padding: 8px 20px; font-size: 14px;">Plein écran ⛶</button>
+    <h2 style="margin: 0;">💰 Finance</h2>
+  </div>
+  <div class="finance-header-right hide-on-fullscreen">
+    <button class="btn-oval" style="margin: 0; padding: 8px 20px; font-size: 14px;" onclick="window.open('https://gemini.google.com/gem/1yBgwbaL8dibKdbKCTEyMjRXtkxsZX1JX?usp=sharing', '_blank')">Oncle Picsous 🦆</button>
+    <button class="btn-oval" style="margin: 0; padding: 8px 20px; font-size: 14px;" onclick="window.open('https://drive.google.com/drive/folders/11QxqOTueBenVgansWpujv1IveMiqNOI-?usp=drive_link', '_blank')">Data 📂</button>
+  </div>
+</div>
+
+<div id="finance-module" class="module-container">
+
+  <div class="iframe-container">
+    <iframe 
+      src="https://docs.google.com/spreadsheets/d/1RCAInC8oOAC17X6IHyHJaXpZ0xPY7qhP-F4c4xutTYM/edit?rm=minimal" 
+      style="width: 100%; height: 100%; border: none;"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="hide-on-fullscreen" style="display: flex; width: fit-content; gap: 10px; flex-wrap: wrap; padding: 15px; border: 1px solid var(--border-color); border-radius: 12px; background-color: var(--card-bg); margin-top: 5px;">
+    <p style="width: 100%; margin: 0 0 10px 0; font-size: 14px; font-weight: 600; color: var(--text-sub);">Accès Bancaires</p>
+    <button class="btn-oval" style="background-color: #E2001A; color: white; border: none;" onclick="window.open('https://www.caisse-epargne.fr', '_blank')">Caisse d'Épargne 🏦</button>
+    <button class="btn-oval" style="background-color: #90C226; color: white; border: none;" onclick="window.open('https://www.fortuneo.fr', '_blank')">Fortuneo 💳</button>
+    <button class="btn-oval" style="background-color: #E5007D; color: white; border: none;" onclick="window.open('https://clients.boursobank.com/connexion/', '_blank')">BoursoBank 🚀</button>
+  </div>
+
+  <div class="hide-on-fullscreen" style="margin-top: 20px; padding: 15px; border: 1px solid var(--border-color); border-radius: 12px; background-color: var(--card-bg);">
+    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+      <p style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text-sub);">📈 Investissement — Amundi PEA Monde (MSCI World) UCITS ETF</p>
+      <button class="btn-oval" style="margin: 0; padding: 6px 16px; font-size: 13px;" onclick="toggleFullScreen('investissement-module')">Plein écran ⛶</button>
+    </div>
+
+    <div id="investissement-module">
+      <div id="yf-quote-header" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px; margin-bottom: 14px;">
+        <span style="color: var(--text-sub); font-size: 13px;">Chargement des cours...</span>
+      </div>
+
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
+        <button class="btn-oval yf-range-btn" data-range="1mo" style="padding: 5px 14px; font-size: 12px;">1M</button>
+        <button class="btn-oval yf-range-btn" data-range="3mo" style="padding: 5px 14px; font-size: 12px;">3M</button>
+        <button class="btn-oval yf-range-btn" data-range="6mo" style="padding: 5px 14px; font-size: 12px;">6M</button>
+        <button class="btn-oval yf-range-btn" data-range="1y" style="padding: 5px 14px; font-size: 12px;">1A</button>
+        <button class="btn-oval yf-range-btn" data-range="5y" style="padding: 5px 14px; font-size: 12px;">5A</button>
+      </div>
+
+      <div style="height: 500px; position: relative; width: 100%; min-height: 500px;">
+        <div id="yf-chart" style="width: 100%; height: 100%;"></div>
+      </div>
+
+      <div id="yf-stats" class="stats-grid"></div>
+
+      <p id="yf-error" style="color: #d93025; font-size: 13px; display: none; margin-top: 10px;"></p>
+      <p style="font-size: 11px; color: var(--text-sub); margin-top: 10px; margin-bottom: 0;">Données : Yahoo Finance (ticker DCAM.PA), récupérées via Supabase Edge Functions.</p>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+  // Script de finance simplifié pour la migration
+  // La logique complète sera implémentée avec Supabase Edge Functions
+  console.log('Module Finance chargé');
+  
+  // Placeholder pour les données Yahoo Finance
+  // Dans la version complète, cela utilisera Supabase Edge Functions
+  // pour éviter les problèmes CORS et implémenter le cache
+</script>
