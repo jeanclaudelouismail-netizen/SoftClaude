@@ -2,7 +2,7 @@
 const CONFIG = {
   // Supabase Configuration (à remplir avec vos clés)
   supabase: {
-    url: 'YOUR_SUPABASE_URL',
+    url: 'https://cifolyaayipdzpzaerhq.supabase.co/rest/v1/',
     anonKey: 'sb_publishable_q0Z_7FG0zEVsyNdt3xwuIw__hrLxdHC'
   },
 
