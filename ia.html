@@ -1,30 +1,234 @@
 <div class="module-header">
   <button class="openbtn" onclick="showHome()">&larr;</button>
-  <h2>🤖 IA</h2>
+  <h2>🤖 IA & Assistants</h2>
 </div>
 
-<div class="dashboard-grid">
-  <div class="card">
-    <h3>Claude</h3>
-    <p>Assistant IA Anthropic</p>
-    <div class="card-actions">
-      <button class="btn-oval" onclick="window.open('https://claude.ai', '_blank')">Ouvrir Claude</button>
-    </div>
-  </div>
+<style>
+  .ia-search-bar {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2001;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    width: min(420px, 60vw);
+    transition: opacity 0.2s, margin-left var(--transition-speed), top var(--transition-speed);
+  }
+  .ia-search-bar-inner { position: relative; width: 100%; }
+  .ia-search-bar input {
+    width: 100%;
+    padding: 9px 16px 9px 38px;
+    border-radius: 50px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-color);
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .ia-search-bar .ia-search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  @media (min-width: 769px) {
+    body.sidebar-open .ia-search-bar { margin-left: var(--sidebar-width); }
+  }
+  body.sidebar-open .ia-search-bar {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  @media (max-width: 600px) {
+    .ia-search-bar { width: min(240px, 55vw); }
+  }
+  
+  .ai-category-card {
+    border-top: 4px solid;
+  }
+  
+  .ai-assistant-item {
+    cursor: pointer;
+  }
+</style>
 
-  <div class="card">
-    <h3>ChatGPT</h3>
-    <p>Assistant IA OpenAI</p>
-    <div class="card-actions">
-      <button class="btn-oval" onclick="window.open('https://chat.openai.com', '_blank')">Ouvrir ChatGPT</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3>Gemini</h3>
-    <p>Assistant IA Google</p>
-    <div class="card-actions">
-      <button class="btn-oval" onclick="window.open('https://gemini.google.com', '_blank')">Ouvrir Gemini</button>
-    </div>
+<div class="ia-search-bar hide-on-fullscreen">
+  <div class="ia-search-bar-inner">
+    <input type="text" id="ai-search-bar" placeholder="Rechercher un assistant...">
+    <span class="ia-search-icon">🔍</span>
   </div>
 </div>
+
+<div class="dashboard-grid" id="ai-dashboard-grid" style="margin-top: 25px;">
+
+  <div class="card ai-category-card" style="border-top-color: #9b59b6; grid-column: 1 / -1;">
+    <h3 style="color: #9b59b6;">Outils conversationnels</h3>
+    
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
+      <div class="btn-oval ai-assistant-item" onclick="window.open('https://gemini.google.com', '_blank')" style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 20px; width: 160px; height: auto; border-radius: 12px; background: var(--card-bg); border: 1px solid var(--border-color); text-align: center;">
+        <div style="width: 56px; height: 56px; background: rgba(155, 89, 182, 0.1); display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Google_Gemini_icon_2025.svg/960px-Google_Gemini_icon_2025.svg.png" alt="Gemini" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" referrerpolicy="no-referrer">
+        </div>
+        <span class="ai-name" style="font-weight: 600; color: var(--text-color);">Gemini ✨</span>
+      </div>
+
+      <div class="btn-oval ai-assistant-item" onclick="window.open('https://gemini.google.com/gem/1YuH5goG2FdTKCNOHpebN4J9fwYS9f8VX?usp=sharing', '_blank')" style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 20px; width: 160px; height: auto; border-radius: 12px; background: var(--card-bg); border: 1px solid var(--border-color); text-align: center;">
+        <div style="width: 56px; height: 56px; background: rgba(155, 89, 182, 0.1); display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+          <img src="https://drive.google.com/thumbnail?sz=w300&id=1mwoETcDIfjQjqVmtuwQo3u0-c65IHTLU" alt="Beaufinator" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" referrerpolicy="no-referrer">
+        </div>
+        <span class="ai-name" style="font-weight: 600; color: var(--text-color);">Beaufinator 😎</span>
+      </div>
+
+      <div class="btn-oval ai-assistant-item" onclick="window.open('https://claude.ai', '_blank')" style="display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 20px; width: 160px; height: auto; border-radius: 12px; background: var(--card-bg); border: 1px solid var(--border-color); text-align: center;">
+        <div style="width: 56px; height: 56px; background: rgba(155, 89, 182, 0.1); display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Claude-ai-icon.svg/1280px-Claude-ai-icon.svg.png?_=20250728014952" alt="Claude" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;" referrerpolicy="no-referrer">
+        </div>
+        <span class="ai-name" style="font-weight: 600; color: var(--text-color);">Claude 🧠</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card ai-category-card" style="border-top-color: #2ecc71;">
+    <h3 style="color: #2ecc71;">Informatique</h3>
+    <div class="card-actions" style="display: flex; flex-direction: column; gap: 12px; width: 100%; margin-top: 0;">
+      
+      <div class="btn-oval ai-assistant-item" onclick="window.open('https://gemini.google.com/gem/1FmOXP8T7vsnaOys9m94Y_sXqnCGDxh9a?usp=sharing', '_blank')" style="display: flex; align-items: center; gap: 15px; padding: 12px; border-radius: 8px; background: var(--card-bg); border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;">
+        <img src="https://drive.google.com/thumbnail?sz=w300&id=1fPCiUtEEvNaHp1K0xpwhmiBr2Gmkcyup" alt="Cheat Code" style="width: 48px; height: 48px; border-radius: 6px; object-fit: cover;" referrerpolicy="no-referrer">
+        <span class="ai-name" style="font-weight: 600; color: var(--text-color); text-align: left;">Cheat Code 💻</span>
+      </div>
+
+      <div class="btn-oval ai-assistant-item" onclick="window.open('https://gemini.google.com/gem/1ZfhdWuG-zs07FCss8zLKpqbX6dj5oFhx?usp=sharing', '_blank')" style="display: flex; align-items: center; gap: 15px; padding: 12px; border-radius: 8px; background: var(--card-bg); border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;">
+        <img src="https://drive.google.com/thumbnail?sz=w300&id=1nBHWrP2PphprCDaXoOFv6ze8csG3tUPK" alt="Nexus" style="width: 48px; height: 48px; border-radius: 6px; object-fit: cover;" referrerpolicy="no-referrer">
+        <span class="ai-name" style="font-weight: 600; color: var(--text-color); text-align: left;">Nexus 🔗</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card ai-category-card" style="border-top-color: #f39c12;">
+    <h3 style="color: #f39c12;">Gestion</h3>
+    <div class="card-actions" style="display: flex; flex-direction: column; gap: 12px; width: 100%; margin-top: 0;">
+      
+      <div class="btn-oval ai-assistant-item" onclick="window.open('https://gemini.google.com/gem/1nz9R-lizECzoAREVZPoZke1baF6_zhwb?usp=sharing', '_blank')" style="display: flex; align-items: center; gap: 15px; padding: 12px; border-radius: 8px; background: var(--card-bg); border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;">
+        <img src="https://drive.google.com/thumbnail?sz=w300&id=1ZMF4QYczolnF4hKTWk39Z8AeP33J9cck" alt="Pilote Emploi" style="width: 48px; height: 48px; border-radius: 6px; object-fit: cover;" referrerpolicy="no-referrer">
+        <span class="ai-name" style="font-weight: 600; color: var(--text-color); text-align: left;">Pilote Emploi 🤖</span>
+      </div>
+
+      <div class="btn-oval ai-assistant-item" onclick="window.open('https://gemini.google.com/gem/1yBgwbaL8dibKdbKCTEyMjRXtkxsZX1JX?usp=sharing', '_blank')" style="display: flex; align-items: center; gap: 15px; padding: 12px; border-radius: 8px; background: var(--card-bg); border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;">
+        <img src="https://drive.google.com/thumbnail?sz=w300&id=1aohOuoJjwI_KkvQEqLyPsB-ndsed7P24" alt="Oncle Picsous" style="width: 48px; height: 48px; border-radius: 6px; object-fit: cover;" referrerpolicy="no-referrer">
+        <span class="ai-name" style="font-weight: 600; color: var(--text-color); text-align: left;">Oncle Picsous 🦆</span>
+      </div>
+
+      <div class="btn-oval ai-assistant-item" onclick="window.open('https://gemini.google.com/gem/1bc4W-BaAZ5pD38qYAS_crZXCnjREqijd?usp=sharing', '_blank')" style="display: flex; align-items: center; gap: 15px; padding: 12px; border-radius: 8px; background: var(--card-bg); border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;">
+        <img src="https://drive.google.com/thumbnail?sz=w300&id=1Tm0gHGpxtVg6wDrCNiajnJWhX3wjIFvd" alt="Maître Juju" style="width: 48px; height: 48px; border-radius: 6px; object-fit: cover;" referrerpolicy="no-referrer">
+        <span class="ai-name" style="font-weight: 600; color: var(--text-color); text-align: left;">Maître Juju 🎓</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card ai-category-card" style="border-top-color: #e67e22;">
+    <h3 style="color: #e67e22;">Productivité</h3>
+    <div class="card-actions" style="display: flex; flex-direction: column; gap: 12px; width: 100%; margin-top: 0;">
+      
+      <div class="btn-oval ai-assistant-item" onclick="window.open('https://gemini.google.com/gem/11a1C7pnJ9t3KDVM9RRZetI8gz3Fzr5_i?usp=sharing', '_blank')" style="display: flex; align-items: center; gap: 15px; padding: 12px; border-radius: 8px; background: var(--card-bg); border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;">
+        <img src="https://drive.google.com/thumbnail?sz=w300&id=1ZgoWObfbuhcO7OsOBfNy6xamRcLBhEDH" alt="Bricoleur" style="width: 48px; height: 48px; border-radius: 6px; object-fit: cover;" referrerpolicy="no-referrer">
+        <span class="ai-name" style="font-weight: 600; color: var(--text-color); text-align: left;">Le Bricoleur 🔧</span>
+      </div>
+
+      <div class="btn-oval ai-assistant-item" onclick="window.open('https://gemini.google.com/gem/1NyHI4IIlrP5MLdevbr5y7FOUWOdfmVKt?usp=sharing', '_blank')" style="display: flex; align-items: center; gap: 15px; padding: 12px; border-radius: 8px; background: var(--card-bg); border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;">
+        <img src="https://drive.google.com/thumbnail?sz=w300&id=1hxV_CZCVqWekzxOjusaK4kzLhCs0Bl1Y" alt="Mécanicien" style="width: 48px; height: 48px; border-radius: 6px; object-fit: cover;" referrerpolicy="no-referrer">
+        <span class="ai-name" style="font-weight: 600; color: var(--text-color); text-align: left;">Mécanicien 🚗</span>
+      </div>
+
+      <div class="btn-oval ai-assistant-item" onclick="window.open('https://gemini.google.com/gem/1uXx_IH7A5MRS-21msv-O0geFSDlFjtI5?usp=sharing', '_blank')" style="display: flex; align-items: center; gap: 15px; padding: 12px; border-radius: 8px; background: var(--card-bg); border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;">
+        <img src="https://drive.google.com/thumbnail?sz=w300&id=1SHeWbdc5lNjSTQx_j-K1jp7iY0snfNKF" alt="Chef Moustacho" style="width: 48px; height: 48px; border-radius: 6px; object-fit: cover;" referrerpolicy="no-referrer">
+        <span class="ai-name" style="font-weight: 600; color: var(--text-color); text-align: left;">Chef Moustacho 👨‍🍳</span>
+      </div>
+
+      <div class="btn-oval ai-assistant-item" onclick="window.open('https://gemini.google.com/gem/1JJb0YbP8wta_Re3TOsya7VaS5F0Sn5i-?usp=sharing', '_blank')" style="display: flex; align-items: center; gap: 15px; padding: 12px; border-radius: 8px; background: var(--card-bg); border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;">
+        <img src="https://drive.google.com/thumbnail?sz=w300&id=1Wfg6294DjXLnTMZ1d0dY-x5LglVeP-Bk" alt="Clorophylle" style="width: 48px; height: 48px; border-radius: 6px; object-fit: cover;" referrerpolicy="no-referrer">
+        <span class="ai-name" style="font-weight: 600; color: var(--text-color); text-align: left;">Clorophylle 🌿</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card ai-category-card" style="border-top-color: #e74c3c;">
+    <h3 style="color: #e74c3c;">Santé</h3>
+    <div class="card-actions" style="display: flex; flex-direction: column; gap: 12px; width: 100%; margin-top: 0;">
+      
+      <div class="btn-oval ai-assistant-item" onclick="window.open('https://gemini.google.com/gem/14j6DXZ76cQ-GOYVtxOMdba2cetAfpEvx?usp=sharing', '_blank')" style="display: flex; align-items: center; gap: 15px; padding: 12px; border-radius: 8px; background: var(--card-bg); border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;">
+        <img src="https://drive.google.com/thumbnail?sz=w300&id=1hjVcwx071TJoWFZY5Odw1rNf8j5vKbVZ" alt="Vétérinaire" style="width: 48px; height: 48px; border-radius: 6px; object-fit: cover;" referrerpolicy="no-referrer">
+        <span class="ai-name" style="font-weight: 600; color: var(--text-color); text-align: left;">Vétérinaire 🐾</span>
+      </div>
+
+      <div class="btn-oval ai-assistant-item" onclick="window.open('https://gemini.google.com/gem/1Afj1ZJDgR6CYctAkBQ59qXAPnAXDJuv0?usp=sharing', '_blank')" style="display: flex; align-items: center; gap: 15px; padding: 12px; border-radius: 8px; background: var(--card-bg); border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;">
+        <img src="https://drive.google.com/thumbnail?sz=w300&id=1a_5-6S7tJRi1MTyVkWb2tT5y7qywMXl5" alt="Mes Deux Seins" style="width: 48px; height: 48px; border-radius: 6px; object-fit: cover;" referrerpolicy="no-referrer">
+        <span class="ai-name" style="font-weight: 600; color: var(--text-color); text-align: left;">Mes Deux Seins 👙</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card ai-category-card" style="border-top-color: #1abc9c;">
+    <h3 style="color: #1abc9c;">Store</h3>
+    <div class="card-actions" style="display: flex; flex-direction: column; gap: 12px; width: 100%; margin-top: 0;">
+
+      <div class="btn-oval ai-assistant-item" onclick="window.open('https://gemini.google.com/gem/1oOL0hBE9WQUc9BF7_n7LiTdyluwxpmtn?usp=sharing', '_blank')" style="display: flex; align-items: center; gap: 15px; padding: 12px; border-radius: 8px; background: var(--card-bg); border: 1px solid var(--border-color); width: 100%; box-sizing: border-box;">
+        <img src="https://drive.google.com/thumbnail?sz=w300&id=1fLN76CsvVT61xkzjcKIB_PpvfdXVHKjx" alt="Le dénicheur" style="width: 48px; height: 48px; border-radius: 6px; object-fit: cover;" referrerpolicy="no-referrer">
+        <span class="ai-name" style="font-weight: 600; color: var(--text-color); text-align: left;">Le Dénicheur 🕵️</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Synchronise la barre de recherche avec le comportement de la top-bar
+  (function () {
+    var searchBar = document.querySelector('.ia-search-bar');
+    var topBar = document.querySelector('.top-bar');
+    if (searchBar && topBar) {
+      var syncSearchBarPosition = function () {
+        searchBar.style.top = topBar.style.top || '0px';
+      };
+      window.addEventListener('scroll', syncSearchBarPosition);
+      syncSearchBarPosition();
+    }
+  })();
+
+  // Écouteur pour la saisie de recherche
+  document.addEventListener('input', function(e) {
+    if (e.target && e.target.id === 'ai-search-bar') {
+      const filter = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const categories = document.querySelectorAll('.ai-category-card');
+
+      categories.forEach(category => {
+        const assistants = category.querySelectorAll('.ai-assistant-item');
+        let hasVisibleAssistant = false;
+
+        assistants.forEach(assistant => {
+          const nameText = assistant.querySelector('.ai-name').textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+          
+          if (nameText.includes(filter)) {
+            assistant.style.setProperty('display', assistant.style.flexDirection === 'column' ? 'flex' : 'inline-flex', 'important');
+            hasVisibleAssistant = true;
+          } else {
+            assistant.style.setProperty('display', 'none', 'important');
+          }
+        });
+
+        if (hasVisibleAssistant) {
+          category.style.display = 'flex';
+        } else {
+          category.style.display = 'none';
+        }
+      });
+    }
+  });
+
+  logDebug("Page IA chargée");
+</script>
